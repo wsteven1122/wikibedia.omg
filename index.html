@@ -148,7 +148,7 @@
         color: #ff0055;
       }
 
-      /* 參考 01.02 2026-6-4的影像.jpg 右側外觀工具列 */
+      /* 右側外觀工具列（參考 01.02 2026-6-4的影像.jpg） */
       .sidebar-panel {
         border: 1px solid #ced1d5;
         background: #f8f9fa;
@@ -158,11 +158,9 @@
       .sidebar-section {
         margin-bottom: 15px;
       }
-      .sidebar-section title {
+      .sidebar-section span {
         display: block;
-        font-weight: bold;
         margin-bottom: 5px;
-        color: #54595d;
       }
       .radio-group {
         display: flex;
@@ -170,7 +168,7 @@
         gap: 5px;
       }
 
-      /* 參考 01.02 2026-6-4的影像.jpg 底部三欄樣式 */
+      /* 底部三欄樣式（參考 01.02 2026-6-4的影像.jpg） */
       .footer-tools {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -189,7 +187,7 @@
         margin-bottom: 5px;
       }
 
-      /* 姊妹計劃網格（解構版） */
+      /* 姊妹計劃網格 */
       .sister-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -254,92 +252,104 @@
         </li>
         <li>
           <span class="wiki-link" onclick="scrollToPage(1)"
-            >📖 Portal:歷史上的今天</span
+            >🚨 Wikipedia:維基百科不算參考文獻</span
           >
         </li>
         <li>
           <span class="wiki-link" onclick="scrollToPage(2)"
-            >🛠️ Special:解構底欄與姊妹計劃</span
+            >📚 Special:參考文獻文庫</span
           >
         </li>
         <li
           style="border-top: 1px dashed #a2a9b1; padding-top: 5px; color: red"
         >
-          <b>【惡趣味列表項目】</b>
+          <b>【惡趣味功能】</b>
         </li>
         <li>
           <span class="wiki-link" onclick="scrambleText()"
             >⚠️ 亂碼化目前頁面文字</span
           >
         </li>
-        <li>
-          <span class="wiki-link" onclick="alert('您的辨別能力已扣除 50 點。')"
-            >📊 點擊檢測媒體識讀力</span
-          >
-        </li>
       </ul>
     </div>
 
-    <!-- 頁面 1：維基首頁雙欄與外觀工具列 -->
+    <!-- 頁面 1：標準維基首頁感覺（特色項目 + 歷史上的今天 + 新聞動態） -->
     <div class="wiki-page">
       <div class="mp-banner">
         <h1 class="mp-banner-title">
           <span class="creepy-marquee"
-            >海納百川，有容乃大，<b>維基百科不算參考文獻</b>。</span
+            >歡迎來到維基百科，<b>自由的百科全書</b>。</span
           >
         </h1>
         <div style="font-size: 12px; color: #54595d; margin-top: 5px">
-          今天是 2026年6月4日。此條目已被閱聽人斷章取義 105,203 次。
+          今天是 2026年6月4日。目前共有 1,423,852 條條目。
         </div>
       </div>
 
       <div style="display: grid; grid-template-columns: 2.5fr 1fr; gap: 15px">
-        <!-- 左側維基網格 -->
-        <div class="mp-grid" style="grid-template-columns: 1fr; gap: 15px">
+        <!-- 左側欄目網格（匯集所有經典視窗感覺） -->
+        <div class="mp-grid">
           <!-- 特色條目 -->
           <div class="mp-box" style="border-top: 3px solid #3366cc">
             <div class="mp-box-header">特色條目</div>
             <div class="mp-box-content">
               <p>
                 <b>解構主義</b
-                >：一種旨在挑戰既定穩定結構的哲學批判。傳統閱聽人盲目信任結構化媒介提供的知識，卻鮮少察覺其背後由發布者精心設計的閱讀動線與<b>權力意圖</b>。
+                >（Deconstruction）是後現代主義時期的一個哲學與批評流派。該流派主張文本沒有絕對、單一的既定意義。當代大眾高度依賴結構化的網路百科提供知識，卻往往忽略了排版與媒介本身即帶有發布者的特定意圖。
               </p>
-              <p>當你嘗試點擊右邊外觀工具列時，你將體驗到直覺被背叛的感覺。</p>
             </div>
           </div>
+
+          <!-- 歷史上的今天 -->
+          <div class="mp-box" style="border-top: 3px solid #ff5d5d">
+            <div class="mp-box-header">歷史上的今天</div>
+            <div class="mp-box-content">
+              <ul>
+                <li>
+                  <b>1967年</b
+                  >：哲學家雅克·德希達出版《論文字學》，正式為解構文本奠定理論基礎。
+                </li>
+                <li>
+                  <b>2001年</b
+                  >：網路百科全書正式誕生，開啟了人類集體建立知識、卻也集體陷入資訊盲從的新紀元。
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <!-- 新聞動態 -->
-          <div class="mp-box" style="border-top: 3px solid #00af89">
+          <div
+            class="mp-box"
+            style="border-top: 3px solid #00af89; grid-column: span 2"
+          >
             <div class="mp-box-header">新聞動態</div>
             <div class="mp-box-content">
               <ul>
                 <li>
-                  <b>2026年6月</b>：科學家發現長期閱讀<span
-                    class="wiki-link troll-link"
-                    >正確的新聞</span
-                  >會導致大腦放棄思考，建議多看荒謬訊息以活化大腦細胞。
+                  <b>資訊科技</b>：研究指出，超過 80%
+                  的網路使用者在閱讀社群短影音或碎片化文章時，會直接接受被重組後的視覺結論，喪失對原始文本脈絡的查證能力。
                 </li>
                 <li>
-                  <b>國際衝突</b
-                  >：某國宣稱完全掌握了網路演算法的終極權力，能讓所有讀者集體將「指鹿為馬」視為真理。
+                  <b>大眾傳播</b
+                  >：某主流平台因演算法過度篩選，導致用戶集體陷入特定意圖建構的「擬真世界」中。
                 </li>
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- 右側：外觀控制面板（重現 01.02 2026-6-4的影像.jpg 惡搞版） -->
+        <!-- 右側：外觀控制面板（仿截圖） -->
         <div class="sidebar-panel">
           <div class="sidebar-section">
             <span
               style="
                 font-weight: bold;
-                display: block;
                 border-bottom: 1px solid #ced1d5;
-                margin-bottom: 8px;
+                padding-bottom: 4px;
               "
               >外觀（解構）</span
             >
-            <span style="color: #54595d">文字大小</span>
+            <span style="color: #54595d; margin-top: 8px">文字大小</span>
             <div class="radio-group">
               <label
                 ><input
@@ -364,7 +374,7 @@
                   name="text-size"
                   onclick="trollFont('large')"
                 />
-                大（其實會變超小）</label
+                大（會變超小）</label
               >
             </div>
           </div>
@@ -386,134 +396,41 @@
                   name="color-mode"
                   onclick="trollColor('dark')"
                 />
-                深色（其實是普普爆裂風）</label
+                深色（霓虹風）</label
               >
             </div>
           </div>
         </div>
       </div>
-      <p
-        style="
-          color: #72777d;
-          font-size: 13px;
-          margin-top: 20px;
-          text-align: right;
-        "
-      >
-        ➔ 往右滑動查看「歷史上的今天」 ➔
-      </p>
-    </div>
 
-    <!-- 頁面 2：歷史上的今天（核心論點區） -->
-    <div class="wiki-page">
-      <div class="mp-banner">
-        <h1 class="mp-banner-title">Portal: 歷史上的今天與風格介紹</h1>
-      </div>
-
-      <div class="mp-box" style="border-top: 3px solid #ff5d5d">
-        <div class="mp-box-header">歷史上的今天：結構被重組的那一天</div>
-        <div class="mp-box-content">
-          <p>
-            <b>媒體識讀歷史案例探討</b
-            >：歷史上無數次傳播危機，皆源於大眾對文本缺乏辨別能力。試想以下曾發生在課堂上的真實對話：
-          </p>
-          <blockquote
-            style="
-              border-left: 4px solid #ced1d5;
-              padding-left: 15px;
-              color: #54595d;
-              font-style: italic;
-              background: #f8f9fa;
-              padding: 10px;
-            "
-          >
-            「一名國中老師在課堂間鼓勵同學討論對於殺人犯如何一步一步走到這個局面的討論，試圖引導背後的社會結構問題。」
-          </blockquote>
-          <p>
-            在當代社群媒體或流量怪獸的重組（拼貼）下，這段歷史文本在視覺上常常直接被去脈絡化，進而被閱聽人斷章取義為：
-          </p>
-          <p
-            style="
-              text-align: center;
-              font-size: 18px;
-              background: #fff9ea;
-              padding: 12px;
-              border: 1px dashed #ff5d5d;
-              color: red;
-            "
-          >
-            <b>「國中老師……鼓勵……同學……殺人」</b>
-          </p>
-          <p>
-            本網頁透過左右滑動的非常規排版，正是為了紀念並反思那些在資訊洪流中被消解的真實本質。
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 頁面 3：底欄工具箱與姊妹計劃（完美重現 01.02 2026-6-4的影像.jpg 結構） -->
-    <div class="wiki-page">
-      <div class="mp-banner">
-        <h1 class="mp-banner-title">Wikipedia: 站點常用工具與多元計劃</h1>
-      </div>
-
-      <!-- 仿截圖三欄底欄 -->
+      <!-- 仿截圖三欄底欄與姊妹計劃 -->
       <div class="footer-tools">
         <div>
-          <b style="color: #202122">站點連結</b>
+          <b>站點連結</b>
           <ul>
             <li>
-              <span
-                class="wiki-link"
-                onclick="alert('您已進入行動瀏覽解構模式')"
+              <span class="wiki-link" onclick="alert('已進入行動端解構視角')"
                 >行動瀏覽</span
               >
             </li>
             <li><span class="wiki-link troll-link">站點新聞</span></li>
-            <li>
-              <span class="wiki-link" onclick="location.reload()"
-                >聯絡我們</span
-              >
-            </li>
           </ul>
         </div>
         <div>
-          <b style="color: #202122">認識維基百科</b>
+          <b>認識維基百科</b>
           <ul>
-            <li><span class="wiki-link">誰在撰寫？（答案是沒有人）</span></li>
-            <li><span class="wiki-link">五大支柱（已倒塌四根）</span></li>
-            <li>
-              <span
-                class="wiki-link"
-                onclick="alert('常見誤解：你以為這個選單是正常的。')"
-                >常見誤解</span
-              >
-            </li>
+            <li><span class="wiki-link">誰在撰寫？</span></li>
+            <li><span class="wiki-link">五大支柱（已消解）</span></li>
           </ul>
         </div>
         <div>
-          <b style="color: #202122">常用工具</b>
+          <b>常用工具</b>
           <ul>
-            <li><span class="wiki-link">備忘單</span></li>
             <li><span class="wiki-link troll-link">版權守則</span></li>
             <li><span class="wiki-link">格式手冊</span></li>
           </ul>
         </div>
       </div>
-
-      <!-- 仿截圖姊妹計劃區 -->
-      <p
-        style="
-          margin-top: 30px;
-          font-weight: bold;
-          font-size: 14px;
-          text-align: center;
-        "
-      >
-        維基百科由非營利組織<span class="wiki-link" style="color: #3366cc"
-          >維基媒體基金會</span
-        >運作。基金會旗下尚有其他數個多語言、內容開放的維基計劃：
-      </p>
 
       <div class="sister-grid">
         <div class="sister-item">
@@ -528,7 +445,7 @@
           <div class="sister-icon">文</div>
           <div>
             <b>維基文庫</b><br /><span style="color: #54595d"
-              >自由虛構的圖書館</span
+              >自由虛構文庫</span
             >
           </div>
         </div>
@@ -540,29 +457,108 @@
             >
           </div>
         </div>
-        <div class="sister-item">
-          <div class="sister-icon">物</div>
-          <div>
-            <b>維基物種</b><br /><span style="color: #54595d"
-              >隨機變異目錄</span
-            >
-          </div>
+      </div>
+      <p
+        style="
+          color: #72777d;
+          font-size: 13px;
+          margin-top: 20px;
+          text-align: right;
+        "
+      >
+        ➔ 往右滑動進入核心論述區 ➔
+      </p>
+    </div>
+
+    <!-- 頁面 2：核心論述頁，標題改為「維基百科不算參考文獻」 -->
+    <div class="wiki-page">
+      <div class="mp-banner" style="border-left: 5px solid #ff5d5d">
+        <h1 class="mp-banner-title" style="font-size: 26px; color: #202122">
+          Wikipedia: 維基百科不算參考文獻
+        </h1>
+        <div style="font-size: 13px; color: #54595d; margin-top: 5px">
+          本章節為小組風格與核心觀念呈現。
         </div>
-        <div class="sister-item">
-          <div class="sister-icon">導</div>
-          <div>
-            <b>維基導遊</b><br /><span style="color: #54595d"
-              >帶你迷路的旅行指南</span
-            >
-          </div>
+      </div>
+
+      <div
+        class="mp-box"
+        style="border-top: 3px solid #ff5d5d; margin-bottom: 20px"
+      >
+        <div class="mp-box-header">訊息流通與閱聽人辨別能力（風格介紹）</div>
+        <div class="mp-box-content" style="font-size: 15px">
+          <p>
+            在這個資訊蓬勃發展的年代，我們每天接收到大量的圖文與短影音。然而，我們往往失去了對資訊的<b>辨別能力</b>。許多我們自以為「親眼見證」的真實，其實只是發布者經過篩選、拼貼，刻意引導你去看見的結論，背後往往帶有某種<b>權力意圖</b>。
+          </p>
+
+          <p>
+            為了實踐對當代資訊碎片的「解構」，我們提出一個常見的傳播現象。請試讀以下這段原本完整的事件敘述：
+          </p>
+
+          <blockquote
+            style="
+              border-left: 4px solid #ced1d5;
+              padding-left: 15px;
+              color: #54595d;
+              font-style: italic;
+              background: #f8f9fa;
+              padding: 12px;
+              margin: 15px 0;
+            "
+          >
+            「一名國中老師在課堂間鼓勵同學討論對於殺人犯如何一步一步走到這個局面的討論，試圖引導學生審視背後的社會結構問題。」
+          </blockquote>
+
+          <p>
+            當這段文本進入碎片化的傳播鏈，在特定意圖的去脈絡化重組（拼貼）後，呈現在閱聽人眼前的視覺焦點往往只剩下：
+          </p>
+
+          <p
+            style="
+              text-align: center;
+              font-size: 20px;
+              background: #fff9ea;
+              padding: 15px;
+              border: 1px dashed #ff5d5d;
+              color: #d33;
+              margin: 20px 0;
+            "
+          >
+            <b>「國中老師……鼓勵……同學……殺人」</b>
+          </p>
+
+          <p>
+            本網頁刻意採用橫向水平滑動、並將漢堡選單置於正上方中間，正是透過這些打破操作直覺的
+            UI
+            設計，迫使讀者停下盲目的滾動慣性，重新審視這個被過度包裝與重組的數位世界。
+          </p>
         </div>
-        <div class="sister-item">
-          <div class="sister-icon">元</div>
-          <div>
-            <b>元維基</b><br /><span style="color: #54595d"
-              >協調各種權力意圖</span
-            >
-          </div>
+      </div>
+    </div>
+
+    <!-- 頁面 3：參考文獻文庫 -->
+    <div class="wiki-page">
+      <div class="mp-banner">
+        <h1 class="mp-banner-title">Wikipedia: 參考文獻文庫</h1>
+      </div>
+      <div class="mp-box" style="border-top: 3px solid #a2a9b1">
+        <div class="mp-box-header">外部連結與引用</div>
+        <div class="mp-box-content">
+          <ol>
+            <li style="margin-bottom: 8px">
+              <span class="wiki-link"
+                >當代 UI/UX 中的反直覺排版與批判性設計</span
+              >
+            </li>
+            <li style="margin-bottom: 8px">
+              <span class="wiki-link">資訊繭房與大眾識讀盲區之實證研究</span>
+            </li>
+            <li style="margin-bottom: 8px">
+              <span class="wiki-link troll-link"
+                >點擊這裡查看根本不存在的秘密解構報告</span
+              >
+            </li>
+          </ol>
         </div>
       </div>
     </div>
@@ -594,14 +590,12 @@
         window.scrollBy({ left: amount, behavior: "smooth" });
       }
 
-      // 惡趣味外觀控制：點選「大」反而把字體縮到極小！
+      // 惡趣味外觀控制：放大變縮小
       function trollFont(size) {
         var body = document.getElementById("mainBody");
         if (size === "large") {
           body.style.fontSize = "8px";
-          alert(
-            "解構警告：您選擇放大字體，系統基於反直覺原則已將其縮小至 8px。",
-          );
+          alert("解構警告：基於反直覺原則，字體已縮小。");
         } else if (size === "small") {
           body.style.fontSize = "18px";
         } else {
@@ -609,27 +603,26 @@
         }
       }
 
-      // 惡趣味顏色控制：點選「深色」直接切換成瞎眼普普霓虹風！
+      // 惡趣味顏色控制：深色變霓虹普普風
       function trollColor(mode) {
         var body = document.getElementById("mainBody");
         if (mode === "dark") {
           body.style.backgroundColor = "#ff007f";
           body.style.color = "#e6ff00";
-          alert("🎨 已切換至「深色模式」：普普藝術拼貼霓虹風！");
         } else {
           body.style.backgroundColor = "#f6f6f6";
           body.style.color = "#202122";
         }
       }
 
-      // 惡趣味選單功能：把畫面上所有文字順序打亂變成偽亂碼
+      // 亂碼化文字
       function scrambleText() {
-        alert("正在解構文本結構...");
         document.querySelectorAll("p, h1, h2, li").forEach(function (el) {
           let arr = el.innerText.split("");
           arr.sort(() => Math.random() - 0.5);
           el.innerText = arr.join("");
         });
+        document.getElementById("myMenu").style.display = "none";
       }
 
       // PC端滑鼠滾輪上下滾動轉化為橫向左右滾動
