@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>維基百科不算參考文獻 - 維基百科，自由的百科全書</title>
     <style>
-      /* 基礎樣式：模仿維基百科字體與顏色 */
+      /* 基礎仿維基百科首頁樣式 */
       body {
         font-family: sans-serif;
         margin: 0;
         padding: 0;
         color: #202122;
-        background-color: #ffffff;
-        overflow-y: hidden; /* 隱藏上下捲軸 */
-        overflow-x: auto; /* 啟用左右捲軸 */
+        background-color: #f6f6f6; /* 維基百科經典淡灰底色 */
+        overflow-y: hidden; /* 鎖定上下滾動 */
+        overflow-x: auto; /* 啟用橫向滑動 */
         display: flex;
         height: 100vh;
       }
@@ -27,19 +27,19 @@
         z-index: 9999;
         background: #ffffff;
         color: #3366cc;
-        padding: 10px 20px;
+        padding: 8px 20px;
         font-weight: bold;
         border: 1px solid #a2a9b1;
         border-top: none;
         border-radius: 0 0 4px 4px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 14px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
       .menu-content {
         display: none;
         position: fixed;
-        top: 45px;
+        top: 40px;
         left: 50%;
         transform: translateX(-50%);
         background: #ffffff;
@@ -47,7 +47,7 @@
         padding: 15px;
         z-index: 9998;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        width: 200px;
+        width: 180px;
         border-radius: 4px;
       }
       .menu-content ul {
@@ -59,169 +59,325 @@
         margin: 10px 0;
         font-size: 14px;
       }
-      .fake-link {
+
+      /* 橫向滑動頁面區塊（一頁代表一個維基大區塊） */
+      .wiki-page {
+        min-width: 90vw;
+        max-width: 800px;
+        height: 100vh;
+        box-sizing: border-box;
+        padding: 60px 40px 40px 40px;
+        flex-shrink: 0;
+        overflow-y: auto; /* 內文過長可單獨上下捲 */
+        background: #ffffff;
+        margin-right: 15px;
+        border-right: 1px solid #a2a9b1;
+      }
+
+      /* 仿維基百科首頁迎賓橫幅 */
+      .mp-banner {
+        background-color: #f8f9fa;
+        border: 1px solid #a2a9b1;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .mp-banner-title {
+        font-family: serif;
+        font-size: 22px;
+        margin: 0;
+      }
+
+      /* 惡趣味：緩慢飄移的跑馬燈標題 */
+      .creepy-marquee {
+        display: inline-block;
+        white-space: nowrap;
+        animation: marquee 60s linear infinite;
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(-50px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      /* 仿維基首頁雙欄網格結構 */
+      .mp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .mp-box {
+        border: 1px solid #ced1d5;
+        background: #ffffff;
+      }
+      .mp-box-header {
+        background: #f0f3f7; /* 維基首頁經典藍灰欄目頭 */
+        border-bottom: 1px solid #ced1d5;
+        padding: 6px 12px;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      .mp-box-content {
+        padding: 12px;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      /* 標準維基藍色連結 */
+      .wiki-link {
         color: #3366cc;
         text-decoration: none;
         cursor: pointer;
+        display: inline-block;
+        transition: transform 0.1s ease;
       }
-      .fake-link:hover {
+      .wiki-link:hover {
         text-decoration: underline;
       }
 
-      /* 橫向滑動的容器與區塊設計 */
-      .slide-section {
-        min-width: 85vw; /* 每個區塊佔據大部分螢幕寬度，暗示右邊還有內容 */
-        max-width: 500px;
-        height: 100vh;
-        box-sizing: border-box;
-        padding: 70px 30px 30px 30px; /* 上方留空給中央選單 */
-        border-right: 1px solid #eaecf0; /* 區塊間的維基風格分隔線 */
-        flex-shrink: 0;
-        overflow-y: auto; /* 內容過長時可在區塊內上下捲動 */
+      /* 惡趣味：調皮永遠點不到的連結 */
+      .troll-link:hover {
+        transform: translate(25px, -15px); /* 滑鼠滑過去就移位 */
+        color: #ff0000;
       }
 
-      /* 維基百科標題樣式 */
-      .wiki-header {
-        border-bottom: 1px solid #a2a9b1;
-        padding-bottom: 5px;
-        margin-bottom: 20px;
+      /* 反直覺導覽按鈕（參考截圖位置，但功能顛倒） */
+      .wiki-nav {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        z-index: 1000;
       }
-      .wiki-title {
-        font-size: 26px;
-        font-family: serif;
-        margin: 0;
-      }
-      .wiki-subtitle {
-        font-size: 12px;
-        color: #54595d;
-      }
-
-      /* 維基風格的小標題 */
-      .section-title {
+      .nav-btn {
+        background: #f8f9fa;
+        border: 1px solid #a2a9b1;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 18px;
-        font-weight: bold;
-        border-bottom: 1px solid #a2a9b1;
-        padding-bottom: 3px;
-        margin-top: 0;
-        margin-bottom: 15px;
+        cursor: pointer;
+        user-select: none;
       }
     </style>
   </head>
   <body>
-    <div class="center-top-hamburger" onclick="toggleMenu()">☰ 選單</div>
+    <!-- 正上方中央的漢堡選單 -->
+    <div class="center-top-hamburger" onclick="toggleMenu()">☰ 導覽首頁</div>
     <div class="menu-content" id="myMenu">
       <ul>
         <li>
-          <span class="fake-link" onclick="scrollToSection(0)"
-            >首頁 / 導言</span
+          <span class="wiki-link" onclick="scrollToPage(0)"
+            >Wikipedia:首頁</span
           >
         </li>
         <li>
-          <span class="fake-link" onclick="scrollToSection(1)">背景</span>
+          <span class="wiki-link" onclick="scrollToPage(1)"
+            >Portal:解構背景</span
+          >
         </li>
         <li>
-          <span class="fake-link" onclick="scrollToSection(2)">風格介紹</span>
-        </li>
-        <li>
-          <span class="fake-link" onclick="scrollToSection(3)">參考資料</span>
+          <span class="wiki-link" onclick="scrollToPage(2)"
+            >Portal:權力意圖</span
+          >
         </li>
       </ul>
     </div>
 
-    <div class="slide-section">
-      <div class="wiki-header">
-        <h1 class="wiki-title">維基百科不算參考文獻</h1>
-        <div class="wiki-subtitle">維基百科，自由的百科全書</div>
+    <!-- 頁面 1：經典維基首頁版面 -->
+    <div class="wiki-page">
+      <div class="mp-banner">
+        <div>
+          <h1 class="mp-banner-title">
+            <span class="creepy-marquee"
+              >海納百川，有容乃大，<b>維基百科不算參考文獻</b>。</span
+            >
+          </h1>
+          <div style="font-size: 12px; color: #54595d; margin-top: 5px">
+            今日是 2026年6月4日。此條目已被解構 105,203 次。
+          </div>
+        </div>
       </div>
-      <p>
-        <b>解構主義</b
-        >（英語：Deconstruction）是後現代主義時期的一個哲學與批評流派。本條目旨在探討資訊在網際網路流通時的本質，以及大眾對於網絡資訊的盲信與識讀能力。
-      </p>
-      <p style="color: #72777d; font-size: 14px; margin-top: 40px">
-        ➔ 請向右滑動（或滑鼠橫向滾動）閱讀後續條目 ➔
-      </p>
+
+      <!-- 雙欄位佈局 -->
+      <div class="mp-grid">
+        <!-- 左欄：今日焦點 -->
+        <div class="mp-box" style="border-top: 3px solid #3366cc">
+          <div class="mp-box-header">特色條目</div>
+          <div class="mp-box-content">
+            <p>
+              <b>解構主義</b
+              >（英語：Deconstruction）是一種旨在挑戰既定結構與穩定意義的哲學路徑。傳統上，閱聽人盲目信任如<span
+                class="wiki-link troll-link"
+                >維基百科</span
+              >等結構化媒介所提供的知識，卻鮮少察覺其背後由發布者精心設計的閱讀動線與權力意圖。
+            </p>
+            <hr
+              style="border: 0; border-top: 1px solid #eaecf0; margin: 10px 0"
+            />
+            <div>
+              <b>你知道嗎？</b>
+              <ul>
+                <li>
+                  本條目的原作者據信是<span class="wiki-link troll-link"
+                    >麥當勞叔叔</span
+                  >？
+                </li>
+                <li>當你往右滑動時，你正在打破傳統網頁由上至下的固有結構？</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右欄：新聞動態與風格宣告 -->
+        <div class="mp-box" style="border-top: 3px solid #00af89">
+          <div class="mp-box-header">歷史上的今天（風格介紹）</div>
+          <div class="mp-box-content">
+            <p>
+              <b>資訊辨別能力危機</b
+              >：在當代蓬勃發展的資訊洪流中，碎片化的訊息傳播正悄然解構文本的真實性。許多大眾深信不疑的社群新聞，皆是在特定意圖下遭斷章取義的產物。
+            </p>
+            <p>
+              網頁採用橫向水平流（Horizontal
+              Scroll）設計，正是為了迫使閱聽人離開舒適圈，反思並重新建立對日常網絡介面的辨別能力。
+            </p>
+            <p style="color: #72777d; font-size: 12px; text-align: right">
+              ➔ 繼續向右滑動檢視後續章節
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="slide-section">
-      <h2 class="section-title">背景</h2>
-      <p>
-        在資訊蓬勃發展的年代，我們習慣在乾淨、結構化的排版中閱讀「被視為正確」的知識。然而，許多網路平台上流通的訊息，極可能是發布者經過特定篩選、重組，甚至帶有某種<b>權力意圖</b>的產物。
-      </p>
-      <p>
-        當閱聽人喪失辨別能力時，結構化的文本便會流於表面，成為另一種形式的資訊繭房。
-      </p>
-    </div>
-
-    <div class="slide-section">
-      <h2 class="section-title">閱聽人辨別能力（風格介紹）</h2>
-      <p>為了探討訊息流通與斷章取義的問題，我們試想一個常見的社會現象：</p>
-
-      <blockquote
-        style="
-          border-left: 3px solid #eaecf0;
-          padding-left: 15px;
-          color: #54595d;
-          margin: 15px 0;
-        "
+    <!-- 頁面 2：解構背景 -->
+    <div class="wiki-page">
+      <div class="mp-banner">
+        <h1 class="mp-banner-title">Portal: 權力意圖與媒體識讀</h1>
+      </div>
+      <div
+        class="mp-box"
+        style="border-top: 3px solid #ff5d5d; margin-bottom: 20px"
       >
-        「一名國中老師在課堂間鼓勵同學討論對於殺人犯如何一步一步走到這個局面的討論。」
-      </blockquote>
-
-      <p>
-        在傳統媒體或社群短影音的極端碎片化剪輯（拼貼）下，這樣的內容往往容易被刻意簡化、去脈絡化，最終在視覺或標題上被呈現為：
-      </p>
-
-      <p style="text-align: center; font-size: 18px; letter-spacing: 1px">
-        <mark><b>「國中老師……鼓勵……同學……殺人」</b></mark>
-      </p>
-
-      <p>
-        這種權力意圖對文本的解構，正是本網頁設計試圖引導讀者反思的核心問題。
-      </p>
+        <div class="mp-box-header">學術案例探討</div>
+        <div class="mp-box-content">
+          <p>
+            試思考以下在傳統媒介或社群短影音中，因極端去脈絡化而產生的拼貼（解構）現象：
+          </p>
+          <blockquote
+            style="
+              border-left: 4px solid #ced1d5;
+              padding-left: 15px;
+              color: #54595d;
+              font-style: italic;
+            "
+          >
+            「一名國中老師在課堂間鼓勵同學討論對於殺人犯如何一步一步走到這個局面的討論，試圖引導背後的社會結構問題。」
+          </blockquote>
+          <p>
+            當這段文本被帶有某種權力意圖的傳播者重新篩選與遮蓋後，在視覺上便會被扭曲、重塑為駭人聽聞的偽新聞：
+          </p>
+          <p
+            style="
+              text-align: center;
+              font-size: 16px;
+              background: #fff9ea;
+              padding: 10px;
+              border: 1px dashed #ff5d5d;
+            "
+          >
+            <b>「國中老師……鼓勵……同學……殺人」</b>
+          </p>
+          <p>
+            閱聽人若缺乏審視文本完整性的辨別能力，將會直接淪為這場視覺與訊息設計底下的盲信者。
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class="slide-section">
-      <h2 class="section-title">參考資料</h2>
-      <ul style="padding-left: 20px; font-size: 14px">
-        <li style="margin-bottom: 10px">
-          <span class="fake-link">1. 網路時代的資訊碎片化與媒體識讀研究</span>
-        </li>
-        <li style="margin-bottom: 10px">
-          <span class="fake-link">2. 權力意圖如何重塑公眾文本</span>
-        </li>
-        <li style="margin-bottom: 10px">
-          <span class="fake-link">3. 解構主義在當代 UI/UX 設計中的反思</span>
-        </li>
-      </ul>
+    <!-- 頁面 3：參考資料 -->
+    <div class="wiki-page">
+      <div class="mp-banner">
+        <h1 class="mp-banner-title">Wikipedia: 參考文獻文庫</h1>
+      </div>
+      <div class="mp-box" style="border-top: 3px solid #a2a9b1">
+        <div class="mp-box-header">外部連結與引用</div>
+        <div class="mp-box-content">
+          <ol>
+            <li style="margin-bottom: 8px">
+              <span class="wiki-link"
+                >當代 UI/UX 中的反直覺排版與批判性設計</span
+              >
+            </li>
+            <li style="margin-bottom: 8px">
+              <span class="wiki-link"
+                >資訊繭房與大眾識讀盲區之實證研究 (2026)</span
+              >
+            </li>
+            <li style="margin-bottom: 8px">
+              <span class="wiki-link troll-link"
+                >點擊這裡查看根本不存在的秘密解構報告</span
+              >
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- 反直覺右下角導覽：左右按鈕功能相反 -->
+    <div class="wiki-nav">
+      <!-- 點左箭頭：反而往右滑動 -->
+      <div class="nav-btn" onclick="scrollAmount(500)" title="向右看下一頁">
+        ←
+      </div>
+      <!-- 點右箭頭：反而往左滑動 -->
+      <div class="nav-btn" onclick="scrollAmount(-500)" title="向左看前一頁">
+        →
+      </div>
     </div>
 
     <script>
-      // 控制中央漢堡選單的開關
+      // 控制中央漢堡選單
       function toggleMenu() {
         var menu = document.getElementById("myMenu");
         menu.style.display = menu.style.display === "block" ? "none" : "block";
       }
 
-      // 點擊選單時，平滑滾動到指定的橫向區塊
-      function scrollToSection(index) {
-        var sections = document.querySelectorAll(".slide-section");
-        if (sections[index]) {
-          sections[index].scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: "start",
-          });
+      // 選單平滑橫向定位
+      function scrollToPage(index) {
+        var pages = document.querySelectorAll(".wiki-page");
+        if (pages[index]) {
+          pages[index].scrollIntoView({ behavior: "smooth", inline: "start" });
         }
-        document.getElementById("myMenu").style.display = "none"; // 點擊後關閉選單
+        document.getElementById("myMenu").style.display = "none";
       }
 
-      // 支援滑鼠滾輪直接進行橫向捲動（選用，增加桌電體驗）
+      // 惡趣味導覽按鈕控制（故意反向滾動）
+      function scrollAmount(amount) {
+        window.scrollBy({
+          left: amount,
+          behavior: "smooth",
+        });
+      }
+
+      // PC端滑鼠滾輪上下滾動轉化為橫向左右滾動
       window.addEventListener(
         "wheel",
         function (e) {
           if (e.deltaY !== 0) {
             window.scrollBy({
-              left: e.deltaY * 2,
+              left: e.deltaY * 1.5,
               behavior: "auto",
             });
             e.preventDefault();
