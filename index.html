@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>維基百科不算參考文獻 - 維基百科，自由的百科全書</title>
+    <style>
+      /* 基礎樣式：模仿維基百科字體與顏色 */
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #202122;
+        background-color: #ffffff;
+        overflow-y: hidden; /* 隱藏上下捲軸 */
+        overflow-x: auto; /* 啟用左右捲軸 */
+        display: flex;
+        height: 100vh;
+      }
+
+      /* 核心反直覺 UI：漢堡選單在正上方中間 */
+      .center-top-hamburger {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        background: #ffffff;
+        color: #3366cc;
+        padding: 10px 20px;
+        font-weight: bold;
+        border: 1px solid #a2a9b1;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        cursor: pointer;
+        font-size: 16px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .menu-content {
+        display: none;
+        position: fixed;
+        top: 45px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ffffff;
+        border: 1px solid #a2a9b1;
+        padding: 15px;
+        z-index: 9998;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        width: 200px;
+        border-radius: 4px;
+      }
+      .menu-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .menu-content li {
+        margin: 10px 0;
+        font-size: 14px;
+      }
+      .fake-link {
+        color: #3366cc;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .fake-link:hover {
+        text-decoration: underline;
+      }
+
+      /* 橫向滑動的容器與區塊設計 */
+      .slide-section {
+        min-width: 85vw; /* 每個區塊佔據大部分螢幕寬度，暗示右邊還有內容 */
+        max-width: 500px;
+        height: 100vh;
+        box-sizing: border-box;
+        padding: 70px 30px 30px 30px; /* 上方留空給中央選單 */
+        border-right: 1px solid #eaecf0; /* 區塊間的維基風格分隔線 */
+        flex-shrink: 0;
+        overflow-y: auto; /* 內容過長時可在區塊內上下捲動 */
+      }
+
+      /* 維基百科標題樣式 */
+      .wiki-header {
+        border-bottom: 1px solid #a2a9b1;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
+      .wiki-title {
+        font-size: 26px;
+        font-family: serif;
+        margin: 0;
+      }
+      .wiki-subtitle {
+        font-size: 12px;
+        color: #54595d;
+      }
+
+      /* 維基風格的小標題 */
+      .section-title {
+        font-size: 18px;
+        font-weight: bold;
+        border-bottom: 1px solid #a2a9b1;
+        padding-bottom: 3px;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="center-top-hamburger" onclick="toggleMenu()">☰ 選單</div>
+    <div class="menu-content" id="myMenu">
+      <ul>
+        <li>
+          <span class="fake-link" onclick="scrollToSection(0)"
+            >首頁 / 導言</span
+          >
+        </li>
+        <li>
+          <span class="fake-link" onclick="scrollToSection(1)">背景</span>
+        </li>
+        <li>
+          <span class="fake-link" onclick="scrollToSection(2)">風格介紹</span>
+        </li>
+        <li>
+          <span class="fake-link" onclick="scrollToSection(3)">參考資料</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="slide-section">
+      <div class="wiki-header">
+        <h1 class="wiki-title">維基百科不算參考文獻</h1>
+        <div class="wiki-subtitle">維基百科，自由的百科全書</div>
+      </div>
+      <p>
+        <b>解構主義</b
+        >（英語：Deconstruction）是後現代主義時期的一個哲學與批評流派。本條目旨在探討資訊在網際網路流通時的本質，以及大眾對於網絡資訊的盲信與識讀能力。
+      </p>
+      <p style="color: #72777d; font-size: 14px; margin-top: 40px">
+        ➔ 請向右滑動（或滑鼠橫向滾動）閱讀後續條目 ➔
+      </p>
+    </div>
+
+    <div class="slide-section">
+      <h2 class="section-title">背景</h2>
+      <p>
+        在資訊蓬勃發展的年代，我們習慣在乾淨、結構化的排版中閱讀「被視為正確」的知識。然而，許多網路平台上流通的訊息，極可能是發布者經過特定篩選、重組，甚至帶有某種<b>權力意圖</b>的產物。
+      </p>
+      <p>
+        當閱聽人喪失辨別能力時，結構化的文本便會流於表面，成為另一種形式的資訊繭房。
+      </p>
+    </div>
+
+    <div class="slide-section">
+      <h2 class="section-title">閱聽人辨別能力（風格介紹）</h2>
+      <p>為了探討訊息流通與斷章取義的問題，我們試想一個常見的社會現象：</p>
+
+      <blockquote
+        style="
+          border-left: 3px solid #eaecf0;
+          padding-left: 15px;
+          color: #54595d;
+          margin: 15px 0;
+        "
+      >
+        「一名國中老師在課堂間鼓勵同學討論對於殺人犯如何一步一步走到這個局面的討論。」
+      </blockquote>
+
+      <p>
+        在傳統媒體或社群短影音的極端碎片化剪輯（拼貼）下，這樣的內容往往容易被刻意簡化、去脈絡化，最終在視覺或標題上被呈現為：
+      </p>
+
+      <p style="text-align: center; font-size: 18px; letter-spacing: 1px">
+        <mark><b>「國中老師……鼓勵……同學……殺人」</b></mark>
+      </p>
+
+      <p>
+        這種權力意圖對文本的解構，正是本網頁設計試圖引導讀者反思的核心問題。
+      </p>
+    </div>
+
+    <div class="slide-section">
+      <h2 class="section-title">參考資料</h2>
+      <ul style="padding-left: 20px; font-size: 14px">
+        <li style="margin-bottom: 10px">
+          <span class="fake-link">1. 網路時代的資訊碎片化與媒體識讀研究</span>
+        </li>
+        <li style="margin-bottom: 10px">
+          <span class="fake-link">2. 權力意圖如何重塑公眾文本</span>
+        </li>
+        <li style="margin-bottom: 10px">
+          <span class="fake-link">3. 解構主義在當代 UI/UX 設計中的反思</span>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      // 控制中央漢堡選單的開關
+      function toggleMenu() {
+        var menu = document.getElementById("myMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+      }
+
+      // 點擊選單時，平滑滾動到指定的橫向區塊
+      function scrollToSection(index) {
+        var sections = document.querySelectorAll(".slide-section");
+        if (sections[index]) {
+          sections[index].scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
+          });
+        }
+        document.getElementById("myMenu").style.display = "none"; // 點擊後關閉選單
+      }
+
+      // 支援滑鼠滾輪直接進行橫向捲動（選用，增加桌電體驗）
+      window.addEventListener(
+        "wheel",
+        function (e) {
+          if (e.deltaY !== 0) {
+            window.scrollBy({
+              left: e.deltaY * 2,
+              behavior: "auto",
+            });
+            e.preventDefault();
+          }
+        },
+        { passive: false },
+      );
+    </script>
+  </body>
+</html>
