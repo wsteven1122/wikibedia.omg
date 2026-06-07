@@ -48,7 +48,7 @@
         padding: 15px;
         z-index: 9998;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        width: 220px;
+        width: 240px;
         border-radius: 4px;
       }
       .menu-content ul {
@@ -116,6 +116,7 @@
       .mp-box {
         border: 1px solid #ced1d5;
         background: #ffffff;
+        margin-bottom: 15px;
       }
       .mp-box-header {
         background: #f0f3f7;
@@ -148,7 +149,7 @@
         color: #ff0055;
       }
 
-      /* 右側外觀工具列（參考 01.02 2026-6-4的影像.jpg） */
+      /* 右側外觀工具列 */
       .sidebar-panel {
         border: 1px solid #ced1d5;
         background: #f8f9fa;
@@ -168,7 +169,7 @@
         gap: 5px;
       }
 
-      /* 底部三欄樣式（參考 01.02 2026-6-4的影像.jpg） */
+      /* 底部三欄樣式 */
       .footer-tools {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -214,6 +215,66 @@
         color: #54595d;
       }
 
+      /* █ 核心機密：立可帶黑幕容器（修正溢出問題） █ */
+      .blackout-container {
+        line-height: 2.3;
+        font-size: 15px;
+        position: relative;
+        padding: 18px;
+        background: #fafafa;
+        border: 1px solid #ced1d5;
+        max-width: 100%; /* 強制鎖定在父層寬度內 */
+        box-sizing: border-box;
+        word-wrap: break-word; /* 允許文字自動換行，絕不穿牆 */
+        white-space: normal; /* 取消任何可能導致不換行的設定 */
+      }
+
+      /* 被閹割塗黑的文字樣式 */
+      .redacted {
+        transition: all 0.4s ease;
+        display: inline; /* 確保能正常斷行拼貼 */
+      }
+      body.is-redacted .redacted {
+        background-color: #202122;
+        color: #202122;
+        user-select: none;
+      }
+
+      /* 倖存發光的關鍵字（加入衝擊性的視覺放大動態） */
+      .survived {
+        font-weight: bold;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: inline-block;
+      }
+      body.is-redacted .survived {
+        background-color: #e6ff00;
+        color: #000000;
+        font-size: 24px; /* 瞬間放大，造成視覺霸凌 */
+        padding: 2px 8px;
+        margin: 0 4px;
+        box-shadow: 0 0 12px #e6ff00;
+        transform: scale(1.1);
+      }
+
+      /* 解構啟動按鈕 */
+      .glitch-btn {
+        background: #ff5d5d;
+        color: white;
+        border: 1px solid black;
+        padding: 12px 15px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 15px 0;
+        display: block;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+        transition: background 0.2s;
+      }
+      .glitch-btn:hover {
+        background: #e04444;
+      }
+
       /* 反直覺右下角導覽按鈕 */
       .wiki-nav {
         position: fixed;
@@ -239,7 +300,6 @@
     </style>
   </head>
   <body id="mainBody">
-    <!-- 正上方中央的漢堡選單 -->
     <div class="center-top-hamburger" onclick="toggleMenu()">
       ☰ 導覽與特殊列表
     </div>
@@ -252,18 +312,18 @@
         </li>
         <li>
           <span class="wiki-link" onclick="scrollToPage(1)"
-            >🚨 Wikipedia:維基百科不算參考文獻</span
+            >🚨 Wikipedia:作品學術條目介紹</span
           >
         </li>
         <li>
-          <span class="wiki-link" onclick="scrollToPage(2)"
-            >📚 Special:參考文獻文庫</span
+          <span class="wiki-link" onclick="triggerMenuRedaction()"
+            >🎬 執行：一鍵斷章取義功能</span
           >
         </li>
         <li
           style="border-top: 1px dashed #a2a9b1; padding-top: 5px; color: red"
         >
-          <b>【惡趣味功能】</b>
+          <b>【權力意圖彩蛋】</b>
         </li>
         <li>
           <span class="wiki-link" onclick="scrambleText()"
@@ -273,7 +333,6 @@
       </ul>
     </div>
 
-    <!-- 頁面 1：標準維基首頁感覺（特色項目 + 歷史上的今天 + 新聞動態） -->
     <div class="wiki-page">
       <div class="mp-banner">
         <h1 class="mp-banner-title">
@@ -287,9 +346,7 @@
       </div>
 
       <div style="display: grid; grid-template-columns: 2.5fr 1fr; gap: 15px">
-        <!-- 左側欄目網格（匯集所有經典視窗感覺） -->
         <div class="mp-grid">
-          <!-- 特色條目 -->
           <div class="mp-box" style="border-top: 3px solid #3366cc">
             <div class="mp-box-header">特色條目</div>
             <div class="mp-box-content">
@@ -300,7 +357,6 @@
             </div>
           </div>
 
-          <!-- 歷史上的今天 -->
           <div class="mp-box" style="border-top: 3px solid #ff5d5d">
             <div class="mp-box-header">歷史上的今天</div>
             <div class="mp-box-content">
@@ -317,7 +373,6 @@
             </div>
           </div>
 
-          <!-- 新聞動態 -->
           <div
             class="mp-box"
             style="border-top: 3px solid #00af89; grid-column: span 2"
@@ -338,7 +393,6 @@
           </div>
         </div>
 
-        <!-- 右側：外觀控制面板（仿截圖） -->
         <div class="sidebar-panel">
           <div class="sidebar-section">
             <span
@@ -354,6 +408,7 @@
               <label
                 ><input
                   type="radio"
+                  id="fontSmall"
                   name="text-size"
                   onclick="trollFont('small')"
                 />
@@ -362,6 +417,7 @@
               <label
                 ><input
                   type="radio"
+                  id="fontNormal"
                   name="text-size"
                   checked
                   onclick="trollFont('normal')"
@@ -371,6 +427,7 @@
               <label
                 ><input
                   type="radio"
+                  id="fontLarge"
                   name="text-size"
                   onclick="trollFont('large')"
                 />
@@ -403,7 +460,6 @@
         </div>
       </div>
 
-      <!-- 仿截圖三欄底欄與姊妹計劃 -->
       <div class="footer-tools">
         <div>
           <b>站點連結</b>
@@ -419,7 +475,11 @@
         <div>
           <b>認識維基百科</b>
           <ul>
-            <li><span class="wiki-link">誰在撰寫？</span></li>
+            <li>
+              <span class="wiki-link" id="authorLink" onclick="rollAuthor()"
+                >誰在撰寫？</span
+              >
+            </li>
             <li><span class="wiki-link">五大支柱（已消解）</span></li>
           </ul>
         </div>
@@ -466,77 +526,87 @@
           text-align: right;
         "
       >
-        ➔ 往右滑動進入核心論述區 ➔
+        ➔ 往右滑動進入作品核心理論 ➔
       </p>
     </div>
 
-    <!-- 頁面 2：核心論述頁，標題改為「維基百科不算參考文獻」 -->
     <div class="wiki-page">
-      <div class="mp-banner" style="border-left: 5px solid #ff5d5d">
-        <h1 class="mp-banner-title" style="font-size: 26px; color: #202122">
-          Wikipedia: 維基百科不算參考文獻
+      <div class="mp-banner" style="border-left: 5px solid #3366cc">
+        <h1 class="mp-banner-title" style="font-size: 24px; color: #202122">
+          Wikipedia: 維基百科不算參考文獻 — 作品理論條目
         </h1>
         <div style="font-size: 13px; color: #54595d; margin-top: 5px">
-          本章節為小組風格與核心觀念呈現。
+          本網頁主要運用之核心哲學與空間理論。
         </div>
       </div>
 
-      <div
-        class="mp-box"
-        style="border-top: 3px solid #ff5d5d; margin-bottom: 20px"
-      >
-        <div class="mp-box-header">訊息流通與閱聽人辨別能力（風格介紹）</div>
-        <div class="mp-box-content" style="font-size: 15px">
+      <div class="mp-box">
+        <div class="mp-box-header">1. 結構主義 (Structuralism)</div>
+        <div class="mp-box-content">
           <p>
-            在這個資訊蓬勃發展的年代，我們每天接收到大量的圖文與短影音。然而，我們往往失去了對資訊的<b>辨別能力</b>。許多我們自以為「親眼見證」的真實，其實只是發布者經過篩選、拼貼，刻意引導你去看見的結論，背後往往帶有某種<b>權力意圖</b>。
+            結構主義認為，世界上的所有現象（包括語言、社會、UI習慣）都不是孤立存在的，而是由一個**既定的內在結構系統**所支配。正如人們習慣在網頁角落尋找漢堡選單、預期滾輪由上至下、深色模式必然全黑一樣，這套結構制約了人類的行為直覺。本作品的第一頁即透過完整重構維基百科結構，建立一個讓人深信不疑的「理性系統」。
+          </p>
+        </div>
+      </div>
+
+      <div class="mp-box">
+        <div class="mp-box-header">2. 解構主義 (Deconstruction)</div>
+        <div class="mp-box-content">
+          <p>
+            由雅克·德希達提出，旨在**打破、消解與翻轉**結構主義所建立的二元對立與固有慣性。解構主義表明，文本不具備唯一的終極真理。本作品藉由將選單移至正上方中心、將上下捲動改為橫向水平流、讓外觀控制面板背叛直覺等手段，徹底瓦解大眾對常規網路秩序的盲從，實踐了物理與觀念層面的「雙重解構」。
+          </p>
+        </div>
+      </div>
+
+      <div class="mp-box">
+        <div class="mp-box-header">3. 賽博空間 (Cyberspace)</div>
+        <div class="mp-box-content">
+          <p>
+            指網際網路建立的虛擬非物質維度。在賽博空間中，訊息流通極其快速卻高度碎片化，現實與虛擬的界線被抹去。發布者（或當權者）能在這個空間中透過演算法和排版視覺，輕易遮蔽事實、進行大範圍的文本拼貼。閱聽人在這樣的數位洪流中，若缺乏對代碼和界面的辨別能力，便會淪為資訊被權力操弄的受害者。
+          </p>
+        </div>
+      </div>
+
+      <div class="mp-box" style="border: 2px solid #ff5d5d">
+        <div class="mp-box-header" style="background: #ffe6e6; color: #d33">
+          【互動實踐】訊息操弄與斷章取義實驗
+        </div>
+        <div class="mp-box-content">
+          <p>
+            以下是一篇正常的社會新聞報導。請點擊下方的按鈕，體驗當權力意圖介入、進行「文本閹割與斷章取義」時，賽博空間中的資訊會如何被粗暴扭曲：
           </p>
 
-          <p>
-            為了實踐對當代資訊碎片的「解構」，我們提出一個常見的傳播現象。請試讀以下這段原本完整的事件敘述：
-          </p>
+          <button class="glitch-btn" onclick="toggleRedaction()">
+            ➔ 點擊執行：一鍵斷章取義（立可帶黑幕功能）
+          </button>
 
-          <blockquote
-            style="
-              border-left: 4px solid #ced1d5;
-              padding-left: 15px;
-              color: #54595d;
-              font-style: italic;
-              background: #f8f9fa;
-              padding: 12px;
-              margin: 15px 0;
-            "
-          >
-            「一名國中老師在課堂間鼓勵同學討論對於殺人犯如何一步一步走到這個局面的討論，試圖引導學生審視背後的社會結構問題。」
-          </blockquote>
+          <div class="blackout-container" id="newsBox">
+            <span class="redacted">根據今日校園現場報導，</span
+            ><span class="survived">一名國中老師</span
+            ><span class="redacted">日前在</span
+            ><span class="survived">課堂間</span
+            ><span class="redacted">舉辦了人權講座，並且溫和地</span
+            ><span class="survived">鼓勵同學</span
+            ><span class="redacted">們展開深度思辨。在小組發表中，大家積極</span
+            ><span class="survived">討論對於</span
+            ><span class="redacted">社會案件中，那些犯罪的</span
+            ><span class="survived">同學</span
+            ><span class="redacted">究竟是</span
+            ><span class="survived">如何一步一步走到</span
+            ><span class="redacted">不可挽回的</span
+            ><span class="survived">殺人</span><span class="redacted">犯</span
+            ><span class="survived">這個局面的討論</span
+            ><span class="redacted">，藉此探討背後的教育與結構性漏洞。</span>
+          </div>
 
-          <p>
-            當這段文本進入碎片化的傳播鏈，在特定意圖的去脈絡化重組（拼貼）後，呈現在閱聽人眼前的視覺焦點往往只剩下：
-          </p>
-
-          <p
-            style="
-              text-align: center;
-              font-size: 20px;
-              background: #fff9ea;
-              padding: 15px;
-              border: 1px dashed #ff5d5d;
-              color: #d33;
-              margin: 20px 0;
-            "
-          >
-            <b>「國中老師……鼓勵……同學……殺人」</b>
-          </p>
-
-          <p>
-            本網頁刻意採用橫向水平滑動、並將漢堡選單置於正上方中間，正是透過這些打破操作直覺的
-            UI
-            設計，迫使讀者停下盲目的滾動慣性，重新審視這個被過度包裝與重組的數位世界。
+          <p style="margin-top: 15px; font-size: 13px; color: #54595d">
+            當黑幕覆蓋（█）啟動後，90%
+            的原始脈絡將在網格中被安全封鎖抹去，在視覺上強迫讀者接收扭曲後的結論。
           </p>
         </div>
       </div>
     </div>
 
-    <!-- 頁面 3：參考文獻文庫 -->
     <div class="wiki-page">
       <div class="mp-banner">
         <h1 class="mp-banner-title">Wikipedia: 參考文獻文庫</h1>
@@ -563,13 +633,25 @@
       </div>
     </div>
 
-    <!-- 反直覺右下角導覽（與大眾方向相反） -->
     <div class="wiki-nav">
       <div class="nav-btn" onclick="scrollAmount(500)">←</div>
       <div class="nav-btn" onclick="scrollAmount(-500)">→</div>
     </div>
 
     <script>
+      // 【同學名字清單自訂區】
+      var students = ["陳小明", "張美麗", "王大同", "李家豪"];
+      var hasBeenLarge = false;
+
+      // 隨機跳出撰寫者同學名字
+      function rollAuthor() {
+        var randomIndex = Math.floor(Math.random() * students.length);
+        var luckyStudent = students[randomIndex];
+        document.getElementById("authorLink").innerText =
+          "由 " + luckyStudent + " 秘密撰寫";
+        alert("🔍 本百科全書此時此刻由「" + luckyStudent + "」單獨虛構。");
+      }
+
       // 控制中央選單
       function toggleMenu() {
         var menu = document.getElementById("myMenu");
@@ -585,25 +667,38 @@
         document.getElementById("myMenu").style.display = "none";
       }
 
-      // 惡趣味導覽按鈕
-      function scrollAmount(amount) {
-        window.scrollBy({ left: amount, behavior: "smooth" });
+      // 選單列觸發斷章取義
+      function triggerMenuRedaction() {
+        scrollToPage(1);
+        setTimeout(toggleRedaction, 500);
+        document.getElementById("myMenu").style.display = "none";
       }
 
-      // 惡趣味外觀控制：放大變縮小
+      // 控制立可帶黑幕塗黑功能
+      function toggleRedaction() {
+        document.body.classList.toggle("is-redacted");
+      }
+
+      // 惡趣味外觀控制
       function trollFont(size) {
         var body = document.getElementById("mainBody");
+
         if (size === "large") {
-          body.style.fontSize = "8px";
-          alert("解構警告：基於反直覺原則，字體已縮小。");
+          body.style.fontSize = "7px";
+          hasBeenLarge = true;
+          alert("解構警告：基於反直覺原則，字體已縮小至極限。");
+        } else if (size === "normal") {
+          if (hasBeenLarge) {
+            alert("哲学思辨：誰來定義標準？難道大就不能是小嗎？");
+            hasBeenLarge = false;
+          }
+          body.style.fontSize = "14px";
         } else if (size === "small") {
           body.style.fontSize = "18px";
-        } else {
-          body.style.fontSize = "14px";
         }
       }
 
-      // 惡趣味顏色控制：深色變霓虹普普風
+      // 惡趣味顏色控制
       function trollColor(mode) {
         var body = document.getElementById("mainBody");
         if (mode === "dark") {
@@ -617,7 +712,7 @@
 
       // 亂碼化文字
       function scrambleText() {
-        document.querySelectorAll("p, h1, h2, li").forEach(function (el) {
+        document.querySelectorAll("p, li, .redacted").forEach(function (el) {
           let arr = el.innerText.split("");
           arr.sort(() => Math.random() - 0.5);
           el.innerText = arr.join("");
@@ -625,7 +720,12 @@
         document.getElementById("myMenu").style.display = "none";
       }
 
-      // PC端滑鼠滾輪上下滾動轉化為橫向左右滾動
+      // 惡趣味導覽按鈕控制
+      function scrollAmount(amount) {
+        window.scrollBy({ left: amount, behavior: "smooth" });
+      }
+
+      // PC端滾輪上下轉左右滑動
       window.addEventListener(
         "wheel",
         function (e) {
