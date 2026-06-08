@@ -228,7 +228,7 @@
         transition: all 0.3s ease;
       }
 
-      /* 正常與被黑幕狀態下的 redacted 樣式 */
+      /* 被黑幕塗黑的文字樣式 */
       .redacted {
         transition: all 0.3s ease;
         color: #202122;
@@ -240,7 +240,7 @@
         user-select: none;
       }
 
-      /* 倖存關鍵字的動態放大效果 */
+      /* 倖存關鍵字 */
       .survived {
         font-weight: bold;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -296,6 +296,17 @@
         cursor: pointer;
         user-select: none;
       }
+
+      /* 參考文獻條目排版 */
+      .ref-list {
+        padding-left: 20px;
+        line-height: 1.8;
+        font-size: 14px;
+      }
+      .ref-list li {
+        margin-bottom: 12px;
+        word-break: break-all;
+      }
     </style>
   </head>
   <body id="mainBody">
@@ -312,6 +323,11 @@
         <li>
           <span class="wiki-link" onclick="scrollToPage(1)"
             >🚨 Wikipedia:作品學術條目介紹</span
+          >
+        </li>
+        <li>
+          <span class="wiki-link" onclick="scrollToPage(2)"
+            >📚 Wikipedia:參考文獻文庫</span
           >
         </li>
         <li>
@@ -595,7 +611,7 @@
             ><span class="survived">如何一步一步走到</span
             ><span class="redacted">不可挽回的</span
             ><span class="survived">殺人</span
-            ><span class="redacted">犯這個局面的內部結構因果</span
+            ><span class="redacted">犯犯這個局面的內部結構因果</span
             ><span class="survived">討論</span
             ><span class="redacted">，藉此探討背後的教育漏洞。</span>
           </div>
@@ -606,30 +622,97 @@
           </p>
         </div>
       </div>
+      <p
+        style="
+          color: #72777d;
+          font-size: 13px;
+          margin-top: 20px;
+          text-align: right;
+        "
+      >
+        ➔ 往右滑動進入最終參考文獻 ➔
+      </p>
     </div>
 
     <div class="wiki-page">
       <div class="mp-banner">
         <h1 class="mp-banner-title">Wikipedia: 參考文獻文庫</h1>
+        <div style="font-size: 13px; color: #54595d; margin-top: 5px">
+          本作品研究及建構核心理論所引用之文獻與學術資源清單。
+        </div>
       </div>
+
       <div class="mp-box" style="border-top: 3px solid #a2a9b1">
-        <div class="mp-box-header">外部連結與引用</div>
+        <div class="mp-box-header">網路資源與百科條目</div>
         <div class="mp-box-content">
-          <ol>
-            <li style="margin-bottom: 8px">
-              <span class="wiki-link"
-                >當代 UI/UX 中的反直覺排版與批判性設計</span
+          <ol class="ref-list">
+            <li>
+              解構主義 - 維基百科。取自
+              <span
+                class="wiki-link"
+                onclick="
+                  window.open(
+                    'https://zh.wikipedia.org/zh-tw/%E8%A7%A3%E6%A7%8B%E4%B8%BB%E7%BE%A9',
+                    '_blank',
+                  )
+                "
+                >https://zh.wikipedia.org/zh-tw/解構主義</span
               >
             </li>
-            <li style="margin-bottom: 8px">
-              <span class="wiki-link">資訊繭房與大眾識讀盲區之實證研究</span>
-            </li>
-            <li style="margin-bottom: 8px">
-              <span class="wiki-link troll-link"
-                >點擊這裡查看根本不存在的秘密解構報告</span
+            <li>
+              結構主義 - 維基百科。取自
+              <span
+                class="wiki-link"
+                onclick="
+                  window.open(
+                    'https://zh.wikipedia.org/zh-tw/%E7%B5%90%E6%A7%8B%E4%B8%BB%E7%BE%A9',
+                    '_blank',
+                  )
+                "
+                >https://zh.wikipedia.org/zh-tw/結構主義</span
               >
             </li>
           </ol>
+        </div>
+      </div>
+
+      <div class="mp-box" style="border-top: 3px solid #3366cc">
+        <div class="mp-box-header">參考資料</div>
+        <div class="mp-box-content">
+          <ol class="ref-list" start="3">
+            <li>
+              蔡明哲（2004）。〈虛擬、解構與拼貼：後結構主義的網際空間課程觀〉。《資訊社會研究》，(7)，p141-171，7月。
+            </li>
+            <li>
+              劉燕青（2003）。〈「網路空間」的控制邏輯〉。《資訊社會研究》，(5)，p283-303，7月。
+            </li>
+            <li>
+              劉宏怡（2007）。《以解構主義的觀點探討後現代詩的視覺表現形式》。國立臺灣師範大學設計研究所碩士論文。
+            </li>
+            <li>
+              洪磊（2017）。《結構主義與建築應用於複合媒材金工之創作》。國立臺中科技大學商業設計系碩士班碩士論文。
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="mp-box" style="border: 1px dashed #ff5d5d">
+        <div class="mp-box-header" style="background: #fff9f9">
+          站內延伸隱藏彩蛋
+        </div>
+        <div class="mp-box-content">
+          <ul style="list-style: square; padding-left: 20px">
+            <li style="margin-bottom: 6px">
+              <span class="wiki-link troll-link"
+                >當代 UI/UX 中的反直覺排版與批判性設計實驗報告</span
+              >
+            </li>
+            <li style="margin-bottom: 6px">
+              <span class="wiki-link"
+                >資訊繭房與大眾界面識讀盲區之實證論述</span
+              >
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -640,11 +723,9 @@
     </div>
 
     <script>
-      // 【同學名字清單自訂區】
       var students = ["陳小明", "張美麗", "王大同", "李家豪"];
       var hasBeenLarge = false;
 
-      // 隨機跳出撰寫者同學名字
       function rollAuthor() {
         var randomIndex = Math.floor(Math.random() * students.length);
         var luckyStudent = students[randomIndex];
@@ -653,13 +734,11 @@
         alert("🔍 本百科全書此時此刻由「" + luckyStudent + "」單獨虛構。");
       }
 
-      // 控制中央選單
       function toggleMenu() {
         var menu = document.getElementById("myMenu");
         menu.style.display = menu.style.display === "block" ? "none" : "block";
       }
 
-      // 選單橫向跳頁
       function scrollToPage(index) {
         var pages = document.querySelectorAll(".wiki-page");
         if (pages[index]) {
@@ -668,23 +747,18 @@
         document.getElementById("myMenu").style.display = "none";
       }
 
-      // 選單列觸發斷章取義
       function triggerMenuRedaction() {
         scrollToPage(1);
         setTimeout(toggleRedaction, 500);
         document.getElementById("myMenu").style.display = "none";
       }
 
-      // 徹底修復：控制立可帶黑幕與文字替換機制（確保100%有動態反應且安全換行）
       function toggleRedaction() {
-        // 切換 body 的 class，讓 CSS 變色機制生效
         document.body.classList.toggle("is-redacted");
       }
 
-      // 惡趣味外觀控制
       function trollFont(size) {
         var body = document.getElementById("mainBody");
-
         if (size === "large") {
           body.style.fontSize = "7px";
           hasBeenLarge = true;
@@ -700,7 +774,6 @@
         }
       }
 
-      // 惡趣味顏色控制
       function trollColor(mode) {
         var body = document.getElementById("mainBody");
         if (mode === "dark") {
@@ -712,7 +785,6 @@
         }
       }
 
-      // 亂碼化文字
       function scrambleText() {
         document.querySelectorAll("p, li, .redacted").forEach(function (el) {
           let arr = el.innerText.split("");
@@ -722,12 +794,10 @@
         document.getElementById("myMenu").style.display = "none";
       }
 
-      // 惡趣味導覽按鈕控制
       function scrollAmount(amount) {
         window.scrollBy({ left: amount, behavior: "smooth" });
       }
 
-      // PC端滾輪上下轉左右滑動
       window.addEventListener(
         "wheel",
         function (e) {
